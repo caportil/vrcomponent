@@ -1,19 +1,25 @@
+import 'aframe';
+import {Entity, Scene} from 'aframe-react';
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from 'react-dom';
+import Camera from './Camera';
+import Sky from './Sky';
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      //
+    }
+  }
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Scene>
+        <Entity geometry={{primitive: 'box'}} material={{color: 'red'}} position={{x: 0, y: 0, z: -5}}/>
+        <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"/>
+      </Scene>
+
     );
   }
 }
