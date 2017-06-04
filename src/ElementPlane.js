@@ -10,5 +10,16 @@ export default props => (
       material={{color: 'black'}}
     />
 
+    {/* Header */}
+    <Entity
+      text={{
+        value: 'select element type',
+        color: 'white',
+        width: 8
+      }}
+      position={{x: 2.5, y: 1.70, z: 0.25}}
+      rotation='0 0 0'
+    />
+
   </Entity>
 );
