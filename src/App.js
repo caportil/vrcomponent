@@ -39,6 +39,8 @@ class App extends Component {
           position={{x:0, y:0, z:-3}}
           src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/" 
         />
+
+        <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg" />
       </Scene>
     );
   */}
@@ -54,7 +56,7 @@ class App extends Component {
           </a-cursor>
         </Camera>
 
-        <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg" />
+        <Videosphere src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"/>
 
         <Entity
           rotation="0 180 0"
