@@ -52,7 +52,7 @@ class App extends Component {
           <a-cursor
             animation__click="property: scale; easing: easeOutQuad; startEvents: click; from: 2 2 2; to: 1 1 1; dur: 200"
             geometry="radiusInner:0.02; radiusOuter:0.03; segmentsTheta:64"
-            material={"color:#61ffff; shader: flat"}
+            material={`color:${this.state.toggle? '#FF3D00' : '#61ffff'}; shader: flat`}
             >
           </a-cursor>
         </Camera>
