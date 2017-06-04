@@ -11,7 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggle: false
+      toggle: false,
+      elements: [],
     }
   }
 
@@ -26,6 +27,14 @@ class App extends Component {
 
   handleCollide(data) {
     console.log('Collision at:', data)
+  }
+
+  renderElements() {
+    return (
+      this.state.comments.map((comment, idx) => {
+        // return instance of img, video, or text entity per element
+      })
+    )
   }
 
   render() {
