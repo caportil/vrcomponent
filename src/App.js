@@ -6,6 +6,7 @@ import Camera from './Camera';
 import Sky from './Sky';
 import Videosphere from './Videosphere';
 import VideoPlane from './VideoPlane';
+import ElementPlane from './ElementPlane';
 
 class App extends Component {
   constructor(props) {
@@ -53,6 +54,13 @@ class App extends Component {
         <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg" />
       </Scene>
     );
+
+    bmfont-text={{
+      align: 'left',
+      width: '500',
+      color: 'white',
+      text: 'Hello, world!'
+    }}
   */}
 
     return (
@@ -66,7 +74,10 @@ class App extends Component {
           </a-cursor>
         </Camera>
 
-        <Videosphere id='videosphere' src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"/>
+        <Videosphere 
+          id='videosphere' 
+          src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
+        />
 
 
         {this.state.toggle? 
@@ -85,7 +96,18 @@ class App extends Component {
           null
         }
 
-        <Entity geometry={{primitive: 'box'}} material={{color: 'red'}} position={{x: 0, y: 0, z: -5}} events={{click: this.handleClick2.bind(this)}} />
+        <Entity
+          id="toggleBox"
+          geometry={{primitive: 'box'}} 
+          material={{color: 'red'}} 
+          position={{x: 0, y: 0, z: -5}} 
+          events={{click: this.handleClick2.bind(this)}} 
+        />
+
+        <ElementPlane
+          position={{x: 0, y: 5, z:-5}}
+          rotation='0 0 0'
+        />
 
       </Scene>
     )
