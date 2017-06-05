@@ -21,5 +21,29 @@ export default props => (
       rotation='0 0 0'
     />
 
+    {/* Image Thumbnail */}
+    <Entity
+      geometry={{primitive: 'plane'}}
+      material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
+      position={{x: -1.2, y: 0.75, z: 0.05}}
+      rotation='0 0 0'
+    />
+
+    {/* Text Thumbnail */}
+    <Entity
+      geometry={{primitive: 'plane'}}
+      material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
+      position={{x: 0, y: 0.75, z: 0.05}}
+      rotation='0 0 0'
+    />
+
+    {/* Video Thumbnail */}
+    <Entity
+      geometry={{primitive: 'plane'}}
+      material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
+      position={{x: 1.2, y: 0.75, z: 0.05}}
+      rotation='0 0 0'
+    />
+
   </Entity>
 );
