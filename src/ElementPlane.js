@@ -17,7 +17,7 @@ export default props => (
         color: 'white',
         width: 8
       }}
-      position={{x: 2.5, y: 2.70, z: 0.25}}
+      position={{x: 2.45, y: 2.70, z: 0.25}}
       rotation='0 0 0'
     />
 
@@ -52,7 +52,7 @@ export default props => (
         color: 'white',
         width: 8
       }}
-      position={{x: 2.5, y: 0.4, z: 0.05}}
+      position={{x: 2.6, y: 0.4, z: 0.05}}
       rotation='0 0 0'
     />
 
