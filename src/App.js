@@ -14,6 +14,12 @@ class App extends Component {
     this.state = {
       toggle: false,
       elements: [],
+      selections: {
+        type: false,
+        url: false,
+        text: false,
+        previewable: false
+      }
     }
   }
 
@@ -107,6 +113,7 @@ class App extends Component {
         <ElementPlane
           position={{x: 0, y: 5, z:-5}}
           rotation='0 0 0'
+          selections={this.state.selections}
         />
 
       </Scene>
