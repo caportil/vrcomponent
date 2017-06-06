@@ -75,5 +75,24 @@ export default props => (
       rotation='0 0 0'
     />
 
+  {/* "Preview" element */}
+    <Entity
+      text={{
+        value: 'preview',
+        color: 'white',
+        width: 8
+      }}
+      position={{x: 3.325, y: -1.75, z: 0.05}}
+      rotation='0 0 0'
+    />
+
+    {/* "Clickable Address Bar Temp */}
+    <Entity
+      geometry={{primitive: 'plane', height: 0.75, width: 1.5}}
+      material={{color: 'blue'}}
+      position={{x: -0.05, y: -2.5, z: 0.05}}
+      rotation='0 0 0'
+    />
+
   </Entity>
 );
