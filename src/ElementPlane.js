@@ -83,12 +83,13 @@ export default props => {
             material={{color: 'blue'}}
             position={{x: 0, y: -0.25, z: 0.15}}
             rotation='0 0 0'
+            events={{click: () => props.modifiers.handleText()}}
           />
 
           {/* Instructions for Alert Pop Ups */}
           <Entity
             text={{
-              value: `${props.selections.type === 'text' ? '1) enter desired text on first prompt\n2) enter desired height + width + color' : '1) enter media link/URL on first prompt\n2) enter desired height + width + opacity'}`,
+              value: `${props.selections.type === 'text' ? '1) enter desired text on first prompt\n2) enter desired size + color + transparency' : '1) enter media link/URL on first prompt\n2) enter desired height + width + opacity'}`,
               color: 'white',
               width: 4
             }}

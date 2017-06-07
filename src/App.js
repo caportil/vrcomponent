@@ -18,7 +18,8 @@ class App extends Component {
         type: false,
         url: false,
         text: false,
-        previewable: true
+        styling: false,
+        previewable: false
       }
     }
   }
@@ -49,6 +50,16 @@ class App extends Component {
     }
   }
 
+  handleText() {
+    console.log('Running handleText...');
+    let text = prompt('Step one: Please enter your desired text!');
+    let styling = prompt('Step two: Please enter your desired formatting in format "size-color-transparency"! (ex. 15-blue-0.75)');
+    let newObj = this.state.selections;
+    newObj['text'] = text;
+    newObj['styling'] = styling;
+    this.setState(newObj);
+  }
+
   renderElements() {
     return (
       this.state.comments.map((comment, idx) => {
@@ -61,6 +72,7 @@ class App extends Component {
     let modifiers = {
       selectElement: this.selectElement.bind(this),
       testLog: this.handleClick.bind(this),
+      handleText: this.handleText.bind(this),
     }
 
     return (
@@ -74,11 +86,14 @@ class App extends Component {
           </a-cursor>
         </Camera>
 
+        {/*
         <Videosphere 
           id='videosphere' 
           src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
         />
+        */}
 
+        <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"/>
 
         {this.state.toggle? 
 
