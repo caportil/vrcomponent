@@ -15,7 +15,7 @@ class App extends Component {
       toggle: false,
       elements: [],
       selections: {
-        type: true,
+        type: false,
         url: false,
         text: false,
         previewable: true
@@ -38,7 +38,12 @@ class App extends Component {
 
 
   selectElement(type) {
-    this.setState({type: type})
+    console.log('Running within "this"...')
+    console.log('Running selectElement... parameter is:', type, 'this.state.selections.type is:', this.state.selections.type)
+    let newObj = this.state.selections;
+    console.log('newObj is:', newObj);
+    newObj['type'] = type;
+    this.setState(newObj);
   }
 
   renderElements() {
