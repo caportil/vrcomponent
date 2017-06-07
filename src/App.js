@@ -38,12 +38,15 @@ class App extends Component {
 
 
   selectElement(type) {
-    console.log('Running within "this"...')
-    console.log('Running selectElement... parameter is:', type, 'this.state.selections.type is:', this.state.selections.type)
+    console.log('Running within selectElement...')
     let newObj = this.state.selections;
-    console.log('newObj is:', newObj);
-    newObj['type'] = type;
-    this.setState(newObj);
+    if (type === newObj.type) {
+      newObj['type'] = false;
+      this.setState(newObj)
+    } else {
+      newObj['type'] = type;
+      this.setState(newObj);
+    }
   }
 
   renderElements() {
