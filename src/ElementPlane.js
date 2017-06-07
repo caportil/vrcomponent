@@ -31,7 +31,7 @@ export default props => {
       {/* Image Thumbnail */}
         <Entity
           geometry={{primitive: 'plane'}}
-          material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'text' || !props.selections.type ? 1 : 0.5}`}}
+          material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'image' || !props.selections.type ? 1 : 0.5}`}}
           position={{x: -1.2, y: 1.75, z: 0.05}}
           rotation='0 0 0'
           events={{click: () => props.modifiers.selectElement('image')}}
@@ -40,17 +40,19 @@ export default props => {
       {/* Text Thumbnail */}
       <Entity
         geometry={{primitive: 'plane'}}
-        material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
+        material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'text' || !props.selections.type ? 1 : 0.5}`}}
         position={{x: 0, y: 1.75, z: 0.05}}
         rotation='0 0 0'
+        events={{click: () => props.modifiers.selectElement('text')}}
       />
 
       {/* Video Thumbnail */}
       <Entity
         geometry={{primitive: 'plane'}}
-        material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
+        material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'video' || !props.selections.type ? 1 : 0.5}`}}
         position={{x: 1.2, y: 1.75, z: 0.05}}
         rotation='0 0 0'
+        events={{click: () => props.modifiers.selectElement('video')}}
       />
 
 
