@@ -15,10 +15,10 @@ class App extends Component {
       toggle: false,
       elements: [],
       selections: {
-        type: false,
+        type: true,
         url: false,
         text: false,
-        previewable: false
+        previewable: true
       }
     }
   }
@@ -36,6 +36,13 @@ class App extends Component {
     console.log('Collision at:', data)
   }
 
+
+  selectElement(type) {
+    if (type === 'image' || type === 'text' || type === 'video') {
+      this.setState({type: type})
+    }
+  }
+
   renderElements() {
     return (
       this.state.comments.map((comment, idx) => {
@@ -45,29 +52,6 @@ class App extends Component {
   }
 
   render() {
-    {/*
-    return (
-      <Scene>
-        <Entity geometry={{primitive: 'box'}} material={{color: 'red'}} position={{x: 0, y: 0, z: -5}}/>
-
-        <Videosphere src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"/>
-        <VideoPlane 
-          geometry={{height: 3, width: 3}}
-          position={{x:0, y:0, z:-3}}
-          src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/" 
-        />
-
-        <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg" />
-      </Scene>
-    );
-
-    bmfont-text={{
-      align: 'left',
-      width: '500',
-      color: 'white',
-      text: 'Hello, world!'
-    }}
-  */}
 
     return (
       <Scene>
