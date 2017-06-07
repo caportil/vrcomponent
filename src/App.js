@@ -38,9 +38,7 @@ class App extends Component {
 
 
   selectElement(type) {
-    if (type === 'image' || type === 'text' || type === 'video') {
-      this.setState({type: type})
-    }
+    this.setState({type: type})
   }
 
   renderElements() {
@@ -52,6 +50,10 @@ class App extends Component {
   }
 
   render() {
+    let modifiers = {
+      selectElement: this.selectElement.bind(this),
+      testLog: this.handleClick.bind(this),
+    }
 
     return (
       <Scene>
@@ -98,6 +100,7 @@ class App extends Component {
           position={{x: 0, y: 5, z:-5}}
           rotation='0 0 0'
           selections={this.state.selections}
+          modifiers={modifiers}
         />
 
       </Scene>
