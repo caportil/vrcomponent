@@ -29,12 +29,33 @@ export default props => {
       />
 
       {/* Image Thumbnail */}
-      <Entity
-        geometry={{primitive: 'plane'}}
-        material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
-        position={{x: -1.2, y: 1.75, z: 0.05}}
-        rotation='0 0 0'
-      />
+      { props.selections.type === 'text' ? 
+
+          <Entity
+            geometry={{primitive: 'plane'}}
+            material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
+            position={{x: -1.2, y: 1.75, z: 0.05}}
+            rotation='0 0 0'
+            events={{click: props.modifiers.selectElement('image')}}
+          />
+
+        : 
+
+          props.selections.type ? 
+            
+            null
+
+        : 
+
+          <Entity
+            geometry={{primitive: 'plane'}}
+            material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
+            position={{x: -1.2, y: 1.75, z: 0.05}}
+            rotation='0 0 0'
+            events={{click: props.modifiers.selectElement('image')}}
+          />
+
+      }
 
       {/* Text Thumbnail */}
       <Entity
@@ -42,6 +63,7 @@ export default props => {
         material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
         position={{x: 0, y: 1.75, z: 0.05}}
         rotation='0 0 0'
+        events={{click: props.modifiers.selectElement('text')}}
       />
 
       {/* Video Thumbnail */}
@@ -50,6 +72,7 @@ export default props => {
         material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: 1}}
         position={{x: 1.2, y: 1.75, z: 0.05}}
         rotation='0 0 0'
+        events={{click: props.modifiers.selectElement('video')}}
       />
 
 
