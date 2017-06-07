@@ -56,6 +56,10 @@ export default props => {
       />
 
 
+
+
+
+
     {/* STEP TWO (displayed after user selects element type) */}
 
       { props.selections.type ?
@@ -65,11 +69,11 @@ export default props => {
           {/* "Enter URL/text" element */}
           <Entity
             text={{
-              value: 'click to enter text',
+              value: `click to enter ${props.selections.type === 'text' ? 'text' : 'URL'}`,
               color: 'white',
               width: 8
             }}
-            position={{x: 2.6, y: 0.4, z: 0.05}}
+            position={{x: 2.6, y: 0.4, z: 0.15}}
             rotation='0 0 0'
           />
 
@@ -77,18 +81,18 @@ export default props => {
           <Entity
             geometry={{primitive: 'plane', height: 0.5, width: 3}}
             material={{color: 'blue'}}
-            position={{x: 0, y: -0.25, z: 0.05}}
+            position={{x: 0, y: -0.25, z: 0.15}}
             rotation='0 0 0'
           />
 
           {/* Instructions for Alert Pop Ups */}
           <Entity
             text={{
-              value: '1) enter url/text (make sure link is valid!)\n2) enter desired height + width + opacity',
+              value: `${props.selections.type === 'text' ? '1) enter desired text on first prompt\n2) enter desired height + width + color' : '1) enter media link/URL on first prompt\n2) enter desired height + width + opacity'}`,
               color: 'white',
               width: 4
             }}
-            position={{x: 0.4, y: -1, z: 0.05}}
+            position={{x: 0.4, y: -1, z: 0.15}}
             rotation='0 0 0'
           />
 
@@ -102,37 +106,30 @@ export default props => {
 
     {/* STEP THREE (displayed when element selections are complete) */}
 
-      { props.selections.previewable ?
+      <Entity>
+      
+        {/* "Preview" element */}
+        <Entity
+          text={{
+            value: 'preview',
+            color: 'white',
+            width: 8,
+            opacity: 0.5
+          }}
+          position={{x: 3.325, y: -1.75, z: 0.05}}
+          rotation='0 0 0'
+        />
 
-        <Entity>
-        
-          {/* "Preview" element */}
-          <Entity
-            text={{
-              value: 'preview',
-              color: 'white',
-              width: 8
-            }}
-            position={{x: 3.325, y: -1.75, z: 0.05}}
-            rotation='0 0 0'
-          />
+        {/* "Clickable Address Bar Temp */}
+        <Entity
+          geometry={{primitive: 'plane', height: 0.75, width: 1.5}}
+          material={{color: 'blue', opacity: `${props.selections.previewable ? 1 : 0.5}`}}
+          position={{x: -0.05, y: -2.5, z: 0.05}}
+          rotation='0 0 0'
+          events={{click: logSelections}}
+        />
 
-          {/* "Clickable Address Bar Temp */}
-          <Entity
-            geometry={{primitive: 'plane', height: 0.75, width: 1.5}}
-            material={{color: 'blue'}}
-            position={{x: -0.05, y: -2.5, z: 0.05}}
-            rotation='0 0 0'
-            events={{click: logSelections}}
-          />
-
-        </Entity>
-
-        :
-
-        null
-
-      }
+      </Entity>
 
 
 
