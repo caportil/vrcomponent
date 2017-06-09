@@ -122,7 +122,7 @@ class App extends Component {
             position="0 0 0"
             material={{opacity: '0', shader: 'flat', side: 'double', transparent: 'true', repeat: '-1 1'}}
             geometry="height:5;primitive:sphere;radius:10;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0"
-            events={{'click': () => this.showMenu(globalCoordinates)}}
+            events={{'click': () => this.showMenu(globalCoordinates), 'raycaster-intersected': this.handleCollide}}
           />
 
           :
