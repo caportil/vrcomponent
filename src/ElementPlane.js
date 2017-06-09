@@ -121,7 +121,7 @@ export default props => {
           rotation='0 0 0'
         />
 
-        {/* "Clickable Address Bar Temp */}
+        {/* "Clickable Preview Temp */}
         <Entity
           geometry={{primitive: 'plane', height: 0.75, width: 1.5}}
           material={{color: 'blue', opacity: `${props.selections.previewable ? 1 : 0.5}`}}
@@ -132,6 +132,29 @@ export default props => {
 
       </Entity>
 
+    {/* "Cancel" element */}
+    <Entity
+      events={{click: props.modifiers.cancelPreviewable}}
+    >
+      <Entity
+        geometry={{primitive: 'plane', height: 0.5, width: 0.75}}
+        material={{color: 'red', opacity: 0}}
+        position={{x: 0, y: -3.25, z: 0.025}}
+        rotation='0 0 0'
+      />
+
+      <Entity
+        text={{
+          value: `${props.selections.previewable ? '(back)' : ''}`,
+          color: 'white',
+          width: 5,
+          opacity: `${props.selections.previewable ? 1 : 0.5}`
+        }}
+        position={{x: 2.1, y: -3.15, z: 0.05}}
+        rotation='0 0 0'
+        events={{click: () => console.log('back text clicked!')}}
+      />
+    </Entity>
 
 
     </Entity>

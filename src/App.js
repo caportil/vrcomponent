@@ -61,6 +61,13 @@ class App extends Component {
     this.setState(newObj);
   }
 
+  cancelPreviewable() {
+    console.log('Running cancelPreviewable...');
+    let newObj = this.state.selections;
+    newObj['previewable'] = false;
+    this.setState(newObj);
+  }
+
   renderElements() {
     return (
       this.state.comments.map((comment, idx) => {
@@ -74,6 +81,7 @@ class App extends Component {
       selectElement: this.selectElement.bind(this),
       testLog: this.handleClick.bind(this),
       handleText: this.handleText.bind(this),
+      cancelPreviewable: this.cancelPreviewable.bind(this),
     }
 
     return (
