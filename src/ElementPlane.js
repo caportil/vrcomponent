@@ -71,7 +71,8 @@ export default props => {
             text={{
               value: `click to enter ${props.selections.type === 'text' ? 'text' : 'URL'}`,
               color: 'white',
-              width: 8
+              width: 8,
+              opacity: `${props.selections.previewable ? 0.5 : 1}`
             }}
             position={{x: 2.6, y: 0.4, z: 0.15}}
             rotation='0 0 0'
@@ -80,7 +81,7 @@ export default props => {
           {/* "Clickable Address Bar Temp */}
           <Entity
             geometry={{primitive: 'plane', height: 0.5, width: 3}}
-            material={{color: 'blue'}}
+            material={{color: 'blue', opacity: `${props.selections.previewable ? 0.5 : 1}`}}
             position={{x: 0, y: -0.25, z: 0.15}}
             rotation='0 0 0'
             events={{click: () => props.modifiers.handleText()}}
@@ -91,7 +92,8 @@ export default props => {
             text={{
               value: `${props.selections.type === 'text' ? '1) enter desired text on first prompt\n2) enter desired size + color + transparency' : '1) enter media link/URL on first prompt\n2) enter desired height + width + opacity'}`,
               color: 'white',
-              width: 4
+              width: 4,
+              opacity: `${props.selections.previewable ? 0.5 : 1}`
             }}
             position={{x: 0.4, y: -1, z: 0.15}}
             rotation='0 0 0'
