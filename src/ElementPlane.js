@@ -115,7 +115,7 @@ export default props => {
             value: 'preview',
             color: 'white',
             width: 8,
-            opacity: 0.5
+            opacity: `${props.selections.previewable ? 1 : 0.5}`
           }}
           position={{x: 3.325, y: -1.75, z: 0.05}}
           rotation='0 0 0'

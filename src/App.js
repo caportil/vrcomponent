@@ -57,6 +57,7 @@ class App extends Component {
     let newObj = this.state.selections;
     newObj['text'] = text;
     newObj['styling'] = styling;
+    newObj['previewable'] = true;
     this.setState(newObj);
   }
 
