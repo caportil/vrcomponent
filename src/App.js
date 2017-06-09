@@ -8,11 +8,15 @@ import Videosphere from './Videosphere';
 import VideoPlane from './VideoPlane';
 import ElementPlane from './ElementPlane';
 
+// setting coordinates outside of state because of nature of raycaster updates, which would trigger re-renders every few miliseconds if stored within state
+let globalCoordinates = {};
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       toggle: false,
+      placing: false,
       elements: [],
       selections: {
         type: false,
@@ -30,11 +34,12 @@ class App extends Component {
 
   handleClick2() {
     this.setState({toggle: !this.state.toggle})
-    console.log('Box clicked! Current toggle state:', this.state.toggle);
+    console.log('Box clicked! Current toggle state:', this.state.toggle, 'and current globalCoordinates:', globalCoordinates);
   }
 
   handleCollide(data) {
     console.log('Collision at:', data)
+    globalCoordinates = data.detail.intersection.point;
   }
 
 
@@ -66,6 +71,11 @@ class App extends Component {
     let newObj = this.state.selections;
     newObj['previewable'] = false;
     this.setState(newObj);
+  }
+
+  showMenu(coordinates) {
+    console.log('Parameters are:', coordinates);
+    this.setState({toggle: false, placing: true})
   }
 
   renderElements() {
@@ -111,8 +121,8 @@ class App extends Component {
             rotation="0 180 0"
             position="0 0 0"
             material={{opacity: '0', shader: 'flat', side: 'double', transparent: 'true', repeat: '-1 1'}}
-            geometry="height:5;primitive:sphere;radius:7.5;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0"
-            events={{'raycaster-intersected': this.handleCollide, 'click': this.handleClick}}
+            geometry="height:5;primitive:sphere;radius:10;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0"
+            events={{'click': () => this.showMenu(globalCoordinates)}}
           />
 
           :
@@ -128,12 +138,21 @@ class App extends Component {
           events={{click: this.handleClick2.bind(this)}} 
         />
 
-        <ElementPlane
-          position={{x: 0, y: 5, z:-5}}
-          rotation='0 0 0'
-          selections={this.state.selections}
-          modifiers={modifiers}
-        />
+        { this.state.placing ?
+
+          <ElementPlane
+            position={globalCoordinates}
+            rotation='0 0 0'
+            selections={this.state.selections}
+            modifiers={modifiers}
+          />
+
+          :
+
+          null
+
+        }
+
 
       </Scene>
     )
