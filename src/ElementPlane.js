@@ -1,4 +1,5 @@
 import {Entity} from 'aframe-react';
+import 'aframe-look-at-component';
 import React from 'react';
 
 export default props => {
@@ -7,7 +8,7 @@ export default props => {
   }
 
   return (
-    <Entity position={props.position} rotation={props.rotation}>
+    <Entity position={props.position} look-at='[camera]'>
 
     {/* STEP ONE (Displayed from beginning) */}
 

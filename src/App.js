@@ -1,4 +1,5 @@
 import 'aframe';
+import 'aframe-look-at-component';
 import {Entity, Scene} from 'aframe-react';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -142,7 +143,7 @@ class App extends Component {
 
           <ElementPlane
             position={globalCoordinates}
-            rotation='0 0 0'
+            look-at='[camera]'
             selections={this.state.selections}
             modifiers={modifiers}
           />
