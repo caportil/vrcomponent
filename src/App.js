@@ -143,7 +143,6 @@ class App extends Component {
 
           <ElementPlane
             position={globalCoordinates}
-            look-at='[camera]'
             selections={this.state.selections}
             modifiers={modifiers}
           />

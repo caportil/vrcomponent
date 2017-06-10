@@ -7,8 +7,26 @@ export default props => {
     console.log('Current selections are:', props.selections);
   }
 
+  let calculateYaw = (coordinates) => {
+    let x = coordinates['x'];
+    let z = coordinates['z'];
+    // console.log(x, z)
+    if (z <= 0 && x <= 0){
+      return `${90 - Math.abs(Math.atan(z/x) * (180/Math.PI))}`
+    }
+    if (z >= 0 && x >= 0) {
+      return `${-90 - Math.abs(Math.atan(z/x) * (180/Math.PI))}`
+    }
+    if (z >= 0 && x <= 0){
+      return `${90 + Math.abs(Math.atan(z/x) * (180/Math.PI))}`
+    }
+    if (z <= 0 && x >= 0) {
+      return `${Math.abs(Math.atan(z/x) * (180/Math.PI)) - 90}`
+    }
+  }
+
   return (
-    <Entity position={props.position} look-at='[camera]'>
+    <Entity position={props.position} rotation={`0 ${calculateYaw(props.position)} 0`}>
 
     {/* STEP ONE (Displayed from beginning) */}
 
