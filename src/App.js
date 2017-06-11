@@ -79,6 +79,11 @@ class App extends Component {
     this.setState({toggle: false, placing: true})
   }
 
+  hidePlane() {
+    console.log('Running hidePlane...')
+    this.setState({placing: false})
+  }
+
   renderElements() {
     return (
       this.state.comments.map((comment, idx) => {
@@ -93,6 +98,7 @@ class App extends Component {
       testLog: this.handleClick.bind(this),
       handleText: this.handleText.bind(this),
       cancelPreviewable: this.cancelPreviewable.bind(this),
+      hidePlane: this.hidePlane.bind(this),
     }
 
     return (
