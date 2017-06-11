@@ -172,7 +172,7 @@ export default props => {
           material={{color: 'blue', opacity: `${props.selections.previewable ? 1 : 0.5}`}}
           position={{x: -0.05, y: -2.5, z: 0.05}}
           rotation='0 0 0'
-          events={{click: logSelections}}
+          events={{click: props.modifiers.createNewElement}}
         />
 
       </Entity>

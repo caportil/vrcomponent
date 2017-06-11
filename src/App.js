@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom';
 import Camera from './Camera';
 import Sky from './Sky';
 import Videosphere from './Videosphere';
-import VideoPlane from './VideoPlane';
 import ElementPlane from './ElementPlane';
+import NewElement from './NewElement';
 
 // setting coordinates outside of state because of nature of raycaster updates, which would trigger re-renders every few miliseconds if stored within state
 let globalCoordinates = {};
@@ -45,33 +45,49 @@ class App extends Component {
 
 
   selectElement(type) {
-    console.log('Running within selectElement...')
     let newObj = Object.assign({}, this.state.selections);
+    console.log('Running within selectElement... newObj:', newObj)
     if (type === newObj.type) {
       newObj['type'] = false;
-      this.setState(newObj)
+      this.setState({selections: newObj})
     } else {
       newObj['type'] = type;
-      this.setState(newObj);
+      this.setState({selections: newObj});
     }
   }
 
   handleText() {
     console.log('Running handleText...');
     let text = prompt('Step one: Please enter your desired text!');
-    let styling = prompt('Step two: Please enter your desired formatting in format "size-color-transparency"! (ex. 15-blue-0.75)');
+    let styling = prompt('Step two: Please enter your desired formatting in format "size-color-transparency"! (ex. 15-blue-0.75)').split('-');
     let newObj = Object.assign({}, this.state.selections);
+    let format;
+    if (this.state.selections.type === 'text') {
+      format = {
+        size: styling[0],
+        color: styling[1],
+        opacity: styling[2]
+      }
+    } else {
+      format = {
+        height: styling[0],
+        width: styling[1],
+        opacity: styling[2]
+      }
+    }
+
+
     newObj['text'] = text;
     newObj['styling'] = styling;
     newObj['previewable'] = true;
-    this.setState(newObj);
+    this.setState({selections: newObj});
   }
 
   cancelPreviewable() {
     console.log('Running cancelPreviewable...');
     let newObj = Object.assign({}, this.state.selections);
     newObj['previewable'] = false;
-    this.setState(newObj);
+    this.setState({selections: newObj});
   }
 
   showMenu(coordinates) {
@@ -84,10 +100,32 @@ class App extends Component {
     this.setState({placing: false})
   }
 
+  createNewElement() {
+    console.log('Running createNewElement...');
+    let tempArray = this.state.elements.slice(0);
+    let selections = this.state.selections;
+    let formattedStyling = selections.styling.split('-');
+    let element = {
+      type: selections.type,
+      text: selections.text,
+      type: selections.type,
+      styling: {
+        height: formattedStyling
+      }
+    }
+    let resetSelections = {type: false, text: false, url: false, styling: false, previewable: false};
+    tempArray.push(element);
+
+    this.setState({elements: tempArray, selections: resetSelections});
+  }
+
   renderElements() {
     return (
-      this.state.comments.map((comment, idx) => {
+      this.state.elements.map((element, idx) => {
         // return instance of img, video, or text entity per element
+        return (
+          <NewElement selections={element}/>
+        )
       })
     )
   }
@@ -99,6 +137,7 @@ class App extends Component {
       handleText: this.handleText.bind(this),
       cancelPreviewable: this.cancelPreviewable.bind(this),
       hidePlane: this.hidePlane.bind(this),
+      createNewElement: this.createNewElement.bind(this),
     }
 
     return (
