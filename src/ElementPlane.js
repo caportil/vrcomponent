@@ -7,10 +7,21 @@ export default props => {
     console.log('Current selections are:', props.selections);
   }
 
+  let adjustCoordinates = (coordinates) => {
+    let tx = coordinates['x'];
+    let tz = coordinates['z'];
+    let s = Math.abs(tx/ tz); // s = slope
+    let modifier = 7; // increase to push "select element type" plane further away, decrease to bring closer
+    let z = 7 / (Math.sqrt(Math.pow(s, 2) + 1));
+    let x = s*z;
+    x = Math.sign(tx) * x;
+    z = Math.sign(tz) * z;
+    return `${x.toString()} 0.5 ${z.toString()}`
+  }
+
   let calculateYaw = (coordinates) => {
     let x = coordinates['x'];
     let z = coordinates['z'];
-    // console.log(x, z)
     if (z <= 0 && x <= 0){
       return `${90 - Math.abs(Math.atan(z/x) * (180/Math.PI))}`
     }
@@ -26,7 +37,10 @@ export default props => {
   }
 
   return (
-    <Entity position={props.position} rotation={`0 ${calculateYaw(props.position)} 0`}>
+    <Entity 
+      position={`${adjustCoordinates(props.position)}`} 
+      rotation={`0 ${calculateYaw(props.position)} 0`}
+    >
 
     {/* STEP ONE (Displayed from beginning) */}
 
