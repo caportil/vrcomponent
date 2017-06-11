@@ -61,6 +61,16 @@ export default props => {
         rotation='0 0 0'
       />
 
+
+      {/* Close Button */}
+        <Entity
+          geometry={{primitive: 'plane'}}
+          material={{src: 'https://cdn3.iconfinder.com/data/icons/interface/100/close_button_1-512.png', height: 1, width: 1, shader: 'flat', side: 'double', opacity: 0.99}}
+          position={{x: 2.5, y: 3.5, z: 0.05}}
+          rotation='0 0 0'
+          events={{click: () => props.modifiers.hidePlane()}}
+        />
+
       {/* Image Thumbnail */}
         <Entity
           geometry={{primitive: 'plane'}}
