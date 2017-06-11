@@ -46,7 +46,7 @@ class App extends Component {
 
   selectElement(type) {
     console.log('Running within selectElement...')
-    let newObj = this.state.selections;
+    let newObj = Object.assign({}, this.state.selections);
     if (type === newObj.type) {
       newObj['type'] = false;
       this.setState(newObj)
@@ -60,7 +60,7 @@ class App extends Component {
     console.log('Running handleText...');
     let text = prompt('Step one: Please enter your desired text!');
     let styling = prompt('Step two: Please enter your desired formatting in format "size-color-transparency"! (ex. 15-blue-0.75)');
-    let newObj = this.state.selections;
+    let newObj = Object.assign({}, this.state.selections);
     newObj['text'] = text;
     newObj['styling'] = styling;
     newObj['previewable'] = true;
@@ -69,7 +69,7 @@ class App extends Component {
 
   cancelPreviewable() {
     console.log('Running cancelPreviewable...');
-    let newObj = this.state.selections;
+    let newObj = Object.assign({}, this.state.selections);
     newObj['previewable'] = false;
     this.setState(newObj);
   }
