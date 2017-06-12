@@ -75,10 +75,9 @@ class App extends Component {
         opacity: styling[2]
       }
     }
-
-
     newObj['text'] = text;
-    newObj['styling'] = styling;
+    newObj['url'] = text;
+    newObj['styling'] = format;
     newObj['previewable'] = true;
     this.setState({selections: newObj});
   }
@@ -101,30 +100,30 @@ class App extends Component {
   }
 
   createNewElement() {
-    console.log('Running createNewElement...');
     let tempArray = this.state.elements.slice(0);
     let selections = this.state.selections;
-    let formattedStyling = selections.styling.split('-');
+    console.log('Running createNewElement... selections are:', this.state.selections);
+    // let formattedStyling = selections.styling.split('-');
     let element = {
       type: selections.type,
       text: selections.text,
+      url: selections.url,
       type: selections.type,
-      styling: {
-        height: formattedStyling
-      }
+      styling: selections.styling
     }
     let resetSelections = {type: false, text: false, url: false, styling: false, previewable: false};
     tempArray.push(element);
 
-    this.setState({elements: tempArray, selections: resetSelections});
+    this.setState({elements: tempArray, selections: resetSelections, placing: false});
   }
 
   renderElements() {
     return (
       this.state.elements.map((element, idx) => {
         // return instance of img, video, or text entity per element
+        console.log('Running renderElements... element is:', element, 'and globalCoordinates are:', globalCoordinates)
         return (
-          <NewElement selections={element}/>
+          <NewElement key={idx} selections={element} coordinates={globalCoordinates}/>
         )
       })
     )
@@ -197,6 +196,8 @@ class App extends Component {
           null
 
         }
+
+        {this.renderElements()}
 
 
       </Scene>
