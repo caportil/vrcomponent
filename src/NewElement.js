@@ -1,5 +1,4 @@
 import {Entity} from 'aframe-react';
-import 'aframe-look-at-component';
 import React from 'react';
 import ImagePlane from './ImagePlane';
 import VideoPlane from './VideoPlane';
@@ -8,15 +7,22 @@ import TextPlane from './TextPlane';
 export default props => {
   if (props.selections.type === 'image') {
     return (
-      <ImagePlane />
+      <ImagePlane
+        selections={props.selections}
+        coordinates={props.coordinates}
+      />
     )
   } else if (props.selections.type === 'video') {
     return (
-      <VideoPlane />
+      <VideoPlane 
+        selections={props.selections}
+      />
     )
   } else {
     return (
-      <TextPlane />
+      <TextPlane 
+        selections={props.selections}
+      />
     )
   }
 }
