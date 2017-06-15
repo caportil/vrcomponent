@@ -74,7 +74,7 @@ export default props => {
       {/* Image Thumbnail */}
         <Entity
           geometry={{primitive: 'plane'}}
-          material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'image' || !props.selections.type ? 1 : 0.5}`}}
+          material={{src: 'http://i.imgur.com/wqsK2ON.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'image' || !props.selections.type ? 0.99 : 0.5}`}}
           position={{x: -1.2, y: 1.75, z: 0.05}}
           rotation='0 0 0'
           events={{click: () => props.modifiers.selectElement('image')}}
@@ -83,7 +83,7 @@ export default props => {
       {/* Text Thumbnail */}
       <Entity
         geometry={{primitive: 'plane'}}
-        material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'text' || !props.selections.type ? 1 : 0.5}`}}
+        material={{src: 'https://cdn1.iconfinder.com/data/icons/communication-and-navigation/16/Icon_bubble_three_dots-512.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'text' || !props.selections.type ? 0.99 : 0.5}`}}
         position={{x: 0, y: 1.75, z: 0.05}}
         rotation='0 0 0'
         events={{click: () => props.modifiers.selectElement('text')}}
@@ -92,7 +92,7 @@ export default props => {
       {/* Video Thumbnail */}
       <Entity
         geometry={{primitive: 'plane'}}
-        material={{src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/40974-200.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'video' || !props.selections.type ? 1 : 0.5}`}}
+        material={{src: 'http://i.imgur.com/npuJPyC.png', shader: 'flat', side: 'double', opacity: `${props.selections.type === 'video' || !props.selections.type ? 0.99 : 0.5}`}}
         position={{x: 1.2, y: 1.75, z: 0.05}}
         rotation='0 0 0'
         events={{click: () => props.modifiers.selectElement('video')}}
@@ -124,7 +124,7 @@ export default props => {
           {/* "Clickable Address Bar Temp */}
           <Entity
             geometry={{primitive: 'plane', height: 0.5, width: 3}}
-            material={{color: 'blue', opacity: `${props.selections.previewable ? 0.5 : 1}`}}
+            material={{src:'http://i.imgur.com/T4Rbnrc.png', opacity: `${props.selections.previewable ? 0.5 : 0.99}`}}
             position={{x: 0, y: -0.25, z: 0.15}}
             rotation='0 0 0'
             events={{click: () => props.modifiers.handleText()}}
