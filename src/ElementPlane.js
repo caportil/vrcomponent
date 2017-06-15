@@ -102,7 +102,6 @@ export default props => {
 
 
 
-
     {/* STEP TWO (displayed after user selects element type) */}
 
       { props.selections.type ?
@@ -112,12 +111,12 @@ export default props => {
           {/* "Enter URL/text" element */}
           <Entity
             text={{
-              value: `click to enter ${props.selections.type === 'text' ? 'text' : 'URL'}`,
+              value: `click to enter ${props.selections.type === 'text' ? 'text' : 'URL'} &`,
               color: 'white',
               width: 8,
               opacity: `${props.selections.previewable ? 0.5 : 1}`
             }}
-            position={{x: 2.6, y: 0.4, z: 0.15}}
+            position={{x: 2.45, y: 0.4, z: 0.15}}
             rotation='0 0 0'
           />
 
@@ -130,27 +129,28 @@ export default props => {
             events={{click: () => props.modifiers.handleText()}}
           />
 
-          {/* Instructions for Alert Pop Ups */}
-          <Entity
-            text={{
-              value: `${props.selections.type === 'text' ? '1) enter desired text on first prompt\n2) enter desired size + color + transparency' : '1) enter media link/URL on first prompt\n2) enter desired height + width + opacity'}`,
-              color: 'white',
-              width: 4,
-              opacity: `${props.selections.previewable ? 0.5 : 1}`
-            }}
-            position={{x: 0.4, y: -1, z: 0.15}}
-            rotation='0 0 0'
-          />
+        {/* "Enter URL/text" element */}
+        <Entity
+          text={{
+            value: props.selections.type === 'text' ? `size-color-opacity` : `height-width-opacity`,
+            color: 'white',
+            width: 7,
+            opacity: `${props.selections.previewable ? 0.5 : 1}`
+          }}
+          position={{x: props.selections.type === 'text' ? 2.25 : 2.05, y: -0.85, z: 0.15}}
+          rotation='0 0 0'
+        />
 
         </Entity>
 
-        :
-
-        null
-
+        : null
       }
 
     {/* STEP THREE (displayed when element selections are complete) */}
+
+    { props.selections.previewable ?
+
+    <Entity>
 
       <Entity>
       
@@ -160,7 +160,7 @@ export default props => {
             value: 'preview',
             color: 'white',
             width: 8,
-            opacity: `${props.selections.previewable ? 1 : 0.5}`
+            opacity: 1
           }}
           position={{x: 3.325, y: -1.75, z: 0.05}}
           rotation='0 0 0'
@@ -169,7 +169,7 @@ export default props => {
         {/* "Clickable Preview Temp */}
         <Entity
           geometry={{primitive: 'plane', height: 0.75, width: 1.5}}
-          material={{color: 'blue', opacity: `${props.selections.previewable ? 1 : 0.5}`}}
+          material={{color: 'blue', opacity: 1}}
           position={{x: -0.05, y: -2.5, z: 0.05}}
           rotation='0 0 0'
           events={{click: props.modifiers.createNewElement}}
@@ -177,29 +177,36 @@ export default props => {
 
       </Entity>
 
-    {/* "Cancel" element */}
-    <Entity
-      events={{click: props.modifiers.cancelPreviewable}}
-    >
-      <Entity
-        geometry={{primitive: 'plane', height: 0.5, width: 0.75}}
-        material={{color: 'red', opacity: 0}}
-        position={{x: 0, y: -3.25, z: 0.025}}
-        rotation='0 0 0'
-      />
+      <Entity events={{click: props.modifiers.cancelPreviewable}}>
 
-      <Entity
-        text={{
-          value: `${props.selections.previewable ? '(back)' : ''}`,
-          color: 'white',
-          width: 5,
-          opacity: `${props.selections.previewable ? 1 : 0.5}`
-        }}
-        position={{x: 2.1, y: -3.15, z: 0.05}}
-        rotation='0 0 0'
-        events={{click: () => console.log('back text clicked!')}}
-      />
+        <Entity
+          geometry={{primitive: 'plane', height: 0.5, width: 0.75}}
+          material={{color: 'red', opacity: 0}}
+          position={{x: 0, y: -3.25, z: 0.025}}
+          rotation='0 0 0'
+        />
+
+      {/* "Cancel" element */} 
+        <Entity
+          text={{
+            value: `${props.selections.previewable ? '(back)' : ''}`,
+            color: 'white',
+            width: 5,
+            opacity: `${props.selections.previewable ? 1 : 0.5}`
+          }}
+          position={{x: 2.1, y: -3.15, z: 0.05}}
+          rotation='0 0 0'
+          events={{click: () => console.log('back text clicked!')}}
+        />
+
+      </Entity>
+
     </Entity>
+      
+      : null
+    }
+
+
 
 
     </Entity>
