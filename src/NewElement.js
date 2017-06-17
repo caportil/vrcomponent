@@ -9,21 +9,21 @@ export default props => {
     return (
       <ImagePlane
         selections={props.selections}
-        coordinates={props.coordinates}
+        coordinates={props.selections.coordinates}
       />
     )
   } else if (props.selections.type === 'video') {
     return (
       <VideoPlane 
         selections={props.selections}
-        coordinates={props.coordinates}
+        coordinates={props.selections.coordinates}
       />
     )
   } else {
     return (
       <TextPlane 
         selections={props.selections}
-        coordinates={props.coordinates}
+        coordinates={props.selections.coordinates}
       />
     )
   }

@@ -113,6 +113,7 @@ class App extends Component {
     console.log('Running createNewElement... selections are:', this.state.selections);
     // let formattedStyling = selections.styling.split('-');
     let element = {
+      coordinates: globalCoordinates,
       type: selections.type,
       text: selections.text,
       url: selections.url,
@@ -131,7 +132,7 @@ class App extends Component {
         // return instance of img, video, or text entity per element
         console.log('Running renderElements... element is:', element, 'and globalCoordinates are:', globalCoordinates)
         return (
-          <NewElement key={idx} selections={element} coordinates={globalCoordinates}/>
+          <NewElement key={idx} selections={element}/>
         )
       })
     )
