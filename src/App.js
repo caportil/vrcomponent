@@ -61,8 +61,8 @@ class App extends Component {
     let type = this.state.selections.type;
     if (type === 'text') {
       var text = prompt('Please enter your desired text!');
-      var size = prompt('Enter your desired font size (i.e. 5)');
-      var color = prompt('Enter your desired font color (i.e. blue');
+      var size = prompt('Enter your desired font size (default: 15):');
+      var color = prompt('Enter your desired font color (i.e. black):');
       var format = {
         text: text,
         previewable: true,
@@ -74,8 +74,8 @@ class App extends Component {
       };
     } else {
       var url = prompt('Please enter your media URL!');
-      var size = prompt('Enter your desired media size:');
-      var opacity = prompt('Enter your desired opacity (i.e. 0.5 for 50% opacity:')
+      var size = prompt('Enter your desired media size (default: 5):');
+      var opacity = prompt('Enter your desired opacity between 0-1 (i.e. 0.5 for 50% opacity:):')
       var format = {
         url: url,
         previewable: true,

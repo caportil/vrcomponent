@@ -16,12 +16,14 @@ export default props => {
     return (
       <VideoPlane 
         selections={props.selections}
+        coordinates={props.coordinates}
       />
     )
   } else {
     return (
       <TextPlane 
         selections={props.selections}
+        coordinates={props.coordinates}
       />
     )
   }
