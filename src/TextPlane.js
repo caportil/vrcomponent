@@ -8,7 +8,8 @@ export default props => (
     text={{
       value: props.selections.text,
       color: props.selections.styling.color,
-      width: props.selections.styling.size
+      width: props.selections.styling.size,
+      align: 'center'
     }}
     position={props.coordinates}
   />
