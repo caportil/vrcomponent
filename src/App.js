@@ -58,28 +58,36 @@ class App extends Component {
 
   handleText() {
     console.log('Running handleText...');
-    let text = prompt('Step one: Please enter your desired text!');
-    let styling = prompt('Step two: Please enter your desired formatting in format "size-color-transparency"! (ex. 15-blue-0.75)').split('-');
-    let newObj = Object.assign({}, this.state.selections);
-    let format;
-    if (this.state.selections.type === 'text') {
-      format = {
-        size: styling[0],
-        color: styling[1],
-        opacity: styling[2]
-      }
+    let type = this.state.selections.type;
+    if (type === 'text') {
+      var text = prompt('Please enter your desired text!');
+      var size = prompt('Enter your desired font size (i.e. 5)');
+      var color = prompt('Enter your desired font color (i.e. blue');
+      var format = {
+        text: text,
+        previewable: true,
+        type: type,
+        styling: {
+          size: size,
+          color: color
+        }
+      };
     } else {
-      format = {
-        height: styling[0],
-        width: styling[1],
-        opacity: styling[2]
+      var url = prompt('Please enter your media URL!');
+      var size = prompt('Enter your desired media size:');
+      var opacity = prompt('Enter your desired opacity (i.e. 0.5 for 50% opacity:')
+      var format = {
+        url: url,
+        previewable: true,
+        type: type,
+        styling: {
+          size: size,
+          opacity: opacity
+        }
       }
     }
-    newObj['text'] = text;
-    newObj['url'] = text;
-    newObj['styling'] = format;
-    newObj['previewable'] = true;
-    this.setState({selections: newObj});
+    console.log('Format is currently:', format);
+    this.setState({selections: format});
   }
 
   cancelPreviewable() {
