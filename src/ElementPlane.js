@@ -157,19 +157,20 @@ export default props => {
         {/* "Preview" element */}
         <Entity
           text={{
-            value: 'preview',
+            value: 'place element',
             color: 'white',
             width: 8,
             opacity: 1
           }}
-          position={{x: 3.325, y: -1.75, z: 0.05}}
+          position={{x: 2.8, y: -1.75, z: 0.05}}
           rotation='0 0 0'
         />
 
         {/* "Clickable Preview Temp */}
+
         <Entity
-          geometry={{primitive: 'plane', height: 0.75, width: 1.5}}
-          material={{color: 'blue', opacity: 1}}
+          geometry={{primitive: 'circle', radius: 0.4}}
+          material={{src: 'http://i.imgur.com/iyWkLl7.png', shader: 'flat', side: 'double', opacity: 0.99}}
           position={{x: -0.05, y: -2.5, z: 0.05}}
           rotation='0 0 0'
           events={{click: props.modifiers.createNewElement}}
