@@ -162,11 +162,14 @@ class App extends Component {
         {/*
         <Videosphere 
           id='videosphere' 
-          src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
+          src="https://ucarecdn.com/67b81f96-e769-4620-a57c-2071285f0aed/Project2.mp4"
         />
         */}
+        
 
+        
         <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"/>
+        
 
         {this.state.toggle? 
 
@@ -185,10 +188,10 @@ class App extends Component {
         }
 
         <Entity
-          id="toggleBox"
-          geometry={{primitive: 'box'}} 
-          material={{color: 'red'}} 
-          position={{x: 0, y: 0, z: -5}} 
+          id='toggleBox'
+          geometry={{primitive: 'circle', radius: 0.5}}
+          material={{src:  `${this.state.toggle ? 'http://i.imgur.com/Di1kXDN.png' : 'http://i.imgur.com/RBauqN6.png'}` , shader: 'flat', side: 'double', opacity: 0.99}}
+          position={{x: 0, y: -2, z: -5}}     
           events={{click: this.handleClick2.bind(this)}} 
         />
 
