@@ -16,6 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      welcome: true,
       toggle: false,
       placing: false,
       elements: [],
@@ -170,6 +171,57 @@ class App extends Component {
         
         <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"/>
         
+
+        {this.state.welcome? 
+
+          <Entity>
+            <Entity
+              text={{value: 'Welcome', 
+                    width: 35,
+                    opacity: 0.99,
+                    color: 'white',
+                    align: 'center'
+                    }}
+              position={{x: 0, y: 2.75, z: -5}}
+              rotation='0 0 0'
+            />
+            <Entity
+              text={{value: 'Please enter a 360 video URL:', 
+                    width: 5,
+                    opacity: 0.99,
+                    color: 'white',
+                    align: 'center'
+                    }}
+              position={{x: 0, y: 1.5, z: -5}}
+              rotation='0 0 0'
+            />
+            <Entity
+              geometry={{primitive: 'plane', height: 0.5, width: 4}}
+              material={{src:'http://i.imgur.com/T4Rbnrc.png', opacity:  0.99}}
+              position={{x: 0, y: 1, z: -5}}
+              rotation='0 0 0'
+              events={{click: () => console.log('Welcome plane clicked!')}}
+            />
+            <Entity
+              text={{value: 'Or choose from the following presets:', 
+                    width: 5,
+                    opacity: 0.99,
+                    color: 'white',
+                    align: 'center'
+                    }}
+              position={{x: 0, y: 0.35, z: -5}}
+              rotation='0 0 0'
+            />
+          </Entity>
+
+          :
+
+          null
+
+        }
+
+
+
 
         {this.state.toggle? 
 
