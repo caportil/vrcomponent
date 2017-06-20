@@ -18,6 +18,7 @@ class App extends Component {
     this.state = {
       welcome: true,
       toggle: false,
+      background: false,
       placing: false,
       elements: [],
       selections: {
@@ -44,6 +45,11 @@ class App extends Component {
     globalCoordinates = data.detail.intersection.point;
   }
 
+  handleVideosphereURL() {
+    console.log('Running handleVideosphereURL...');
+    let url = prompt('Please enter your URL:');
+    this.setState({background: url, welcome: false});
+  }
 
   selectElement(type) {
     let newObj = Object.assign({}, this.state.selections);
@@ -160,16 +166,19 @@ class App extends Component {
           </a-cursor>
         </Camera>
 
-        {/*
-        <Videosphere 
-          id='videosphere' 
-          src="https://ucarecdn.com/67b81f96-e769-4620-a57c-2071285f0aed/Project2.mp4"
-        />
-        */}
+        
         
 
-        
-        <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"/>
+        {this.state.background?
+          <Videosphere 
+            id='videosphere' 
+            src={this.state.background}
+          />
+          
+          :
+          
+          <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"/>
+        }
         
 
         {this.state.welcome? 
@@ -200,7 +209,7 @@ class App extends Component {
               material={{src:'http://i.imgur.com/T4Rbnrc.png', opacity:  0.99}}
               position={{x: 0, y: 1, z: -5}}
               rotation='0 0 0'
-              events={{click: () => console.log('Welcome plane clicked!')}}
+              events={{click: () => this.handleVideosphereURL()}}
             />
             <Entity
               text={{value: 'Or choose from the following presets:', 
@@ -212,12 +221,34 @@ class App extends Component {
               position={{x: 0, y: 0.35, z: -5}}
               rotation='0 0 0'
             />
+
+            <Entity
+              geometry={{primitive: 'plane', height: 3, width: 3}}
+              material={{src:'http://i.imgur.com/yVbnUDD.png', opacity: 0.99}}
+              position={{x: -4, y: -2, z: -5}}
+              rotation='0 0 0'
+              events={{click: () => this.setState({welcome: false})}}
+            />
+            <Entity
+              geometry={{primitive: 'plane', height: 3, width: 3}}
+              material={{src:'http://i.imgur.com/yVbnUDD.png', opacity: 0.99}}
+              position={{x: 0, y: -2, z: -5}}
+              rotation='0 0 0'
+              events={{click: () => this.setState({welcome: false})}}
+            />
+            <Entity
+              geometry={{primitive: 'plane', height: 3, width: 3}}
+              material={{src:'http://i.imgur.com/yVbnUDD.png', opacity: 0.99}}
+              position={{x: 4, y: -2, z: -5}}
+              rotation='0 0 0'
+              events={{click: () => this.setState({welcome: false})}}
+            />
+
+
           </Entity>
 
           :
-
           null
-
         }
 
 
@@ -235,9 +266,12 @@ class App extends Component {
           />
 
           :
-
           null
         }
+
+        {this.state.welcome?
+          null
+          :
 
         <Entity
           id='toggleBox'
@@ -246,8 +280,10 @@ class App extends Component {
           position={{x: 0, y: -2, z: -5}}     
           events={{click: this.handleClick2.bind(this)}} 
         />
+        }
 
-        { this.state.placing ?
+
+        {this.state.placing ?
 
           <ElementPlane
             position={globalCoordinates}
@@ -256,9 +292,7 @@ class App extends Component {
           />
 
           :
-
           null
-
         }
 
         {this.renderElements()}
