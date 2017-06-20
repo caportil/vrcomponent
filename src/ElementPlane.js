@@ -191,7 +191,7 @@ export default props => {
         <Entity
           text={{
             value: `${props.selections.previewable ? '(back)' : ''}`,
-            color: 'white',
+            color: 'red',
             width: 5,
             opacity: `${props.selections.previewable ? 1 : 0.5}`
           }}
