@@ -222,23 +222,27 @@ class App extends Component {
               rotation='0 0 0'
             />
 
+
+
             <Entity
               geometry={{primitive: 'plane', height: 3, width: 3}}
-              material={{src:'http://i.imgur.com/yVbnUDD.png', opacity: 0.99}}
+              material={{src: 'http://i.imgur.com/I27h28L.png', shader: 'flat', side: 'double', opacity: 1}}
               position={{x: -4, y: -2, z: -5}}
               rotation='0 0 0'
               events={{click: () => this.setState({welcome: false})}}
             />
+
             <Entity
-              geometry={{primitive: 'plane', height: 3, width: 3}}
-              material={{src:'http://i.imgur.com/yVbnUDD.png', opacity: 0.99}}
+              primitve='a-video'
+              geometry={{primitive: 'plane', height: 3, width: 3}} 
+              material={{src: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/', shader: 'flat', opacity: 1}}
               position={{x: 0, y: -2, z: -5}}
-              rotation='0 0 0'
               events={{click: () => this.setState({welcome: false})}}
             />
+
             <Entity
               geometry={{primitive: 'plane', height: 3, width: 3}}
-              material={{src:'http://i.imgur.com/yVbnUDD.png', opacity: 0.99}}
+              material={{src: 'http://i.imgur.com/IY3uuI1.png', shader: 'flat', side: 'double', opacity: 1}}
               position={{x: 4, y: -2, z: -5}}
               rotation='0 0 0'
               events={{click: () => this.setState({welcome: false})}}
