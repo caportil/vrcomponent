@@ -37,7 +37,7 @@ class App extends Component {
 
   handleClick2() {
     this.setState({toggle: !this.state.toggle})
-    console.log('Box clicked! Current toggle state:', this.state.toggle, 'and current globalCoordinates:', globalCoordinates);
+    console.log('Box clicked! Current toggle state:', this.state.toggle, ' current globalCoordinates:', globalCoordinates, 'and current selections:', this.state.selections);
   }
 
   handleCollide(data) {
@@ -176,8 +176,10 @@ class App extends Component {
           />
           
           :
-          
-          <Entity primitive='a-sky' src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg"/>
+
+          <Videosphere
+            src='https://ucarecdn.com/65b1d777-9fc7-4a24-864d-9d59fd80eee4/Project24.mp4'
+          />
         }
         
 
@@ -229,7 +231,7 @@ class App extends Component {
               material={{src: 'http://i.imgur.com/I27h28L.png', shader: 'flat', side: 'double', opacity: 1}}
               position={{x: -4, y: -2, z: -5}}
               rotation='0 0 0'
-              events={{click: () => this.setState({welcome: false})}}
+              events={{click: () => this.setState({welcome: false, background: 'https://ucarecdn.com/6eedc9da-5a8a-4065-ae2b-c0d121b764ab/NewMuseumShorter.mp4'})}}
             />
 
             <Entity
@@ -237,7 +239,7 @@ class App extends Component {
               geometry={{primitive: 'plane', height: 3, width: 3}} 
               material={{src: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/', shader: 'flat', opacity: 1}}
               position={{x: 0, y: -2, z: -5}}
-              events={{click: () => this.setState({welcome: false})}}
+              events={{click: () => this.setState({welcome: false, background: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/'})}}
             />
 
             <Entity
@@ -245,7 +247,7 @@ class App extends Component {
               material={{src: 'http://i.imgur.com/IY3uuI1.png', shader: 'flat', side: 'double', opacity: 1}}
               position={{x: 4, y: -2, z: -5}}
               rotation='0 0 0'
-              events={{click: () => this.setState({welcome: false})}}
+              events={{click: () => this.setState({welcome: false, background: 'https://ucarecdn.com/802ef86b-1a66-4ddb-8f2f-bcac629f756a/NewHackaThon3ShorterStill.mp4'})}}
             />
 
 
