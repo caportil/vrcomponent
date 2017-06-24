@@ -278,14 +278,22 @@ class App extends Component {
         {this.state.welcome?
           null
           :
-
-        <Entity
-          id='toggleBox'
-          geometry={{primitive: 'circle', radius: 0.5}}
-          material={{src:  `${this.state.toggle ? 'http://i.imgur.com/Di1kXDN.png' : 'http://i.imgur.com/RBauqN6.png'}` , shader: 'flat', side: 'double', opacity: 0.99}}
-          position={{x: 0, y: -2, z: -5}}     
-          events={{click: this.handleClick2.bind(this)}} 
-        />
+          <Entity>
+            <Entity
+              id='toggleBox'
+              geometry={{primitive: 'circle', radius: 0.5}}
+              material={{src:  `${this.state.toggle ? 'http://i.imgur.com/Di1kXDN.png' : 'http://i.imgur.com/RBauqN6.png'}` , shader: 'flat', side: 'double', opacity: 0.99}}
+              position={{x: 0, y: -2, z: -5}}     
+              events={{click: this.handleClick2.bind(this)}} 
+            />
+            <Entity
+              id='homeReturn'
+              geometry={{primitive: 'circle', radius: 0.33}}
+              material={{src:  'http://i.imgur.com/vpVSY1q.png' , shader: 'flat', side: 'double', opacity: 0.99}}
+              position={{x: 0, y: -3.33, z: -5}}     
+              events={{click: () => this.setState({welcome: true, background: false})}} 
+            />
+          </Entity>
         }
 
 
