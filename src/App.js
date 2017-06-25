@@ -69,7 +69,7 @@ class App extends Component {
     if (type === 'text') {
       var text = prompt('Please enter your desired text!');
       var size = prompt('Enter your desired font size (default: 15):');
-      var color = prompt('Enter your desired font color (i.e. black):');
+      var color = prompt('Enter your desired font color (i.e. black):').toLowerCase();
       var format = {
         text: text,
         previewable: true,
