@@ -291,7 +291,35 @@ class App extends Component {
                   text: '...and VR Octopus follows suit!',
                   type: 'text',
                   url: undefined
-                });
+                },
+                {
+                  coordinates: {
+                    x: -0.03415424616172854,
+                    y: 5.141521259739953,
+                    z: -8.538515896332578
+                  },
+                  styling: {
+                    color: 'red',
+                    size: '35'
+                  },
+                  text: 'VR Hackathon',
+                  type: 'text',
+                  url: undefined
+                },
+                {
+  coordinates: {
+    x: -0.2769573998527156,
+    y: 3.370416926230091,
+    z: -9.22914349791769
+  },
+  styling: {
+    color: 'red',
+    size: '15'
+  },
+  text: 'Microsoft Reactor, San Francisco CA',
+  type: 'text',
+  url: undefined
+});
                 newState.welcome = false;
                 newState.background = 'https://ucarecdn.com/802ef86b-1a66-4ddb-8f2f-bcac629f756a/NewHackaThon3ShorterStill.mp4';
                 console.log('Still running within sub component...')
