@@ -134,6 +134,7 @@ class App extends Component {
   }
 
   renderElements() {
+    console.log('Current elements are:', this.state.elements)
     return (
       this.state.elements.map((element, idx) => {
         // return instance of img, video, or text entity per element
@@ -247,7 +248,55 @@ class App extends Component {
               material={{src: 'http://i.imgur.com/IY3uuI1.png', shader: 'flat', side: 'double', opacity: 1}}
               position={{x: 4, y: -2, z: -5}}
               rotation='0 0 0'
-              events={{click: () => this.setState({welcome: false, background: 'https://ucarecdn.com/802ef86b-1a66-4ddb-8f2f-bcac629f756a/NewHackaThon3ShorterStill.mp4'})}}
+              events={{click: () => {
+                let newState = Object.assign({}, this.state);
+                newState.elements.push({
+                  coordinates: {
+                    x:0.35356995679296505,
+                    y:0.9261392777061402,
+                    z:-9.81714443106963
+                  },
+                  styling: {
+                    opacity: '0.99',
+                    size: 2
+                  },
+                  text: undefined,
+                  type: 'image',
+                  url: 'http://i.imgur.com/RfCeg0a.png'
+                },
+                {
+                  coordinates: {
+                    x: 9.635170602238885,
+                    y: 2.2176201729225147,
+                    z: -0.4319093668437341
+                  },
+                  styling: {
+                    color: 'white',
+                    size: '12'
+                  },
+                  text: 'Move your arms over here...',
+                  type: 'text',
+                  url: undefined
+                },
+                {
+                  coordinates: {
+                  x: 7.250952268263539,
+                  y: -4.3186272555668355,
+                  z: -4.800458580913162
+                  },
+                  styling: {
+                    color: 'white',
+                    size: '10'
+                  },
+                  text: '...and VR Octopus follows suit!',
+                  type: 'text',
+                  url: undefined
+                });
+                newState.welcome = false;
+                newState.background = 'https://ucarecdn.com/802ef86b-1a66-4ddb-8f2f-bcac629f756a/NewHackaThon3ShorterStill.mp4';
+                console.log('Still running within sub component...')
+                this.setState(newState);
+              }}}
             />
 
 
@@ -291,7 +340,7 @@ class App extends Component {
               geometry={{primitive: 'circle', radius: 0.33}}
               material={{src:  'http://i.imgur.com/vpVSY1q.png' , shader: 'flat', side: 'double', opacity: 0.99}}
               position={{x: 0, y: -3.33, z: -5}}     
-              events={{click: () => this.setState({welcome: true, background: false})}} 
+              events={{click: () => this.setState({welcome: true, background: false, elements: []})}} 
             />
           </Entity>
         }
