@@ -8,6 +8,7 @@ import Sky from './Sky';
 import Videosphere from './Videosphere';
 import ElementPlane from './ElementPlane';
 import NewElement from './NewElement';
+import Welcome from './Welcome';
 
 // setting coordinates outside of state because of nature of raycaster updates, which would trigger re-renders every few miliseconds if stored within state
 let globalCoordinates = {};
@@ -17,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       welcome: true,
-      toggle: false,
+      settingLocation: false,
       background: false,
       placing: false,
       elements: [],
@@ -31,16 +32,13 @@ class App extends Component {
     }
   }
 
-  handleClick() {
-    console.log('Sphere clicked!');
+
+  selectLocation() {
+    this.setState({settingLocation: !this.state.settingLocation})
+    console.log('Box clicked! Current settingLocation state:', this.state.settingLocation, ' current globalCoordinates:', globalCoordinates, 'and current selections:', this.state.selections);
   }
 
-  handleClick2() {
-    this.setState({toggle: !this.state.toggle})
-    console.log('Box clicked! Current toggle state:', this.state.toggle, ' current globalCoordinates:', globalCoordinates, 'and current selections:', this.state.selections);
-  }
-
-  handleCollide(data) {
+  handleCollision(data) {
     console.log('Collision at:', data)
     globalCoordinates = data.detail.intersection.point;
   }
@@ -63,14 +61,30 @@ class App extends Component {
     }
   }
 
+  setBackground(url) {
+    console.log('Running setBackground...')
+    this.setState({welcome: false, background: url})
+  }
+
+  setBackgroundWithComments(url, comments) {
+    console.log('Running setBackgroundWithComments...')
+    let newState = Object.assign({}, this.state);
+    comments.forEach(comment => newState.elements.push(comment));
+    newState.welcome = false;
+    newState.background = url;
+    console.log('Still running within sub component...');
+    this.setState(newState);
+  }
+
   handleText() {
     console.log('Running handleText...');
+    let text, size, color, format, url, opacity;
     let type = this.state.selections.type;
     if (type === 'text') {
-      var text = prompt('Please enter your desired text!');
-      var size = prompt('Enter your desired font size (default: 15):');
-      var color = prompt('Enter your desired font color (i.e. black):').toLowerCase();
-      var format = {
+      text = prompt('Please enter your desired text!');
+      size = prompt('Enter your desired font size (default: 25):');
+      color = prompt('Enter your desired font color (i.e. black):').toLowerCase();
+      format = {
         text: text,
         previewable: true,
         type: type,
@@ -80,10 +94,10 @@ class App extends Component {
         }
       };
     } else {
-      var url = prompt('Please enter your media URL!');
-      var size = prompt('Enter your desired media size (default: 5):');
-      var opacity = prompt('Enter your desired opacity between 0-1 (i.e. 0.5 for 50% opacity:):')
-      var format = {
+      url = prompt('Please enter your media URL!');
+      size = prompt('Enter your desired media size (default: 5):');
+      opacity = prompt('Enter your desired opacity between 0-1 (i.e. 0.5 for 50% opacity:):')
+      format = {
         url: url,
         previewable: true,
         type: type,
@@ -106,7 +120,7 @@ class App extends Component {
 
   showMenu(coordinates) {
     console.log('Parameters are:', coordinates);
-    this.setState({toggle: false, placing: true})
+    this.setState({settingLocation: false, placing: true})
   }
 
   hidePlane() {
@@ -137,8 +151,6 @@ class App extends Component {
     console.log('Current elements are:', this.state.elements)
     return (
       this.state.elements.map((element, idx) => {
-        // return instance of img, video, or text entity per element
-        console.log('Running renderElements... element is:', element, 'and globalCoordinates are:', globalCoordinates)
         return (
           <NewElement key={idx} selections={element}/>
         )
@@ -149,11 +161,13 @@ class App extends Component {
   render() {
     let modifiers = {
       selectElement: this.selectElement.bind(this),
-      testLog: this.handleClick.bind(this),
       handleText: this.handleText.bind(this),
       cancelPreviewable: this.cancelPreviewable.bind(this),
       hidePlane: this.hidePlane.bind(this),
       createNewElement: this.createNewElement.bind(this),
+      handleVideosphereURL: this.handleVideosphereURL.bind(this),
+      setBackground: this.setBackground.bind(this),
+      setBackgroundWithComments: this.setBackgroundWithComments.bind(this)
     }
 
     return (
@@ -162,7 +176,7 @@ class App extends Component {
           <a-cursor
             animation__click="property: scale; easing: easeOutQuad; startEvents: click; from: 2 2 2; to: 1 1 1; dur: 200"
             geometry="radiusInner:0.02; radiusOuter:0.03; segmentsTheta:64"
-            material={`color:${this.state.toggle? '#FF3D00' : '#61ffff'}; shader: flat`}
+            material={`color:${this.state.settingLocation? '#FF3D00' : '#61ffff'}; shader: flat`}
             >
           </a-cursor>
         </Camera>
@@ -185,150 +199,9 @@ class App extends Component {
         
 
         {this.state.welcome? 
-
-          <Entity>
-            <Entity
-              text={{value: 'Welcome', 
-                    width: 35,
-                    opacity: 0.99,
-                    color: 'white',
-                    align: 'center'
-                    }}
-              position={{x: 0, y: 2.75, z: -5}}
-              rotation='0 0 0'
-            />
-            <Entity
-              text={{value: 'Please enter a 360 video URL:', 
-                    width: 5,
-                    opacity: 0.99,
-                    color: 'white',
-                    align: 'center'
-                    }}
-              position={{x: 0, y: 1.5, z: -5}}
-              rotation='0 0 0'
-            />
-            <Entity
-              geometry={{primitive: 'plane', height: 0.5, width: 4}}
-              material={{src:'http://i.imgur.com/T4Rbnrc.png', opacity:  0.99}}
-              position={{x: 0, y: 1, z: -5}}
-              rotation='0 0 0'
-              events={{click: () => this.handleVideosphereURL()}}
-            />
-            <Entity
-              text={{value: 'Or choose from the following presets:', 
-                    width: 5,
-                    opacity: 0.99,
-                    color: 'white',
-                    align: 'center'
-                    }}
-              position={{x: 0, y: 0.35, z: -5}}
-              rotation='0 0 0'
-            />
-
-
-
-            <Entity
-              geometry={{primitive: 'plane', height: 3, width: 3}}
-              material={{src: 'http://i.imgur.com/I27h28L.png', shader: 'flat', side: 'double', opacity: 1}}
-              position={{x: -4, y: -2, z: -5}}
-              rotation='0 0 0'
-              events={{click: () => this.setState({welcome: false, background: 'https://ucarecdn.com/6eedc9da-5a8a-4065-ae2b-c0d121b764ab/NewMuseumShorter.mp4'})}}
-            />
-
-            <Entity
-              primitve='a-video'
-              geometry={{primitive: 'plane', height: 3, width: 3}} 
-              material={{src: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/', shader: 'flat', opacity: 1}}
-              position={{x: 0, y: -2, z: -5}}
-              events={{click: () => this.setState({welcome: false, background: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/'})}}
-            />
-
-            <Entity
-              geometry={{primitive: 'plane', height: 3, width: 3}}
-              material={{src: 'http://i.imgur.com/IY3uuI1.png', shader: 'flat', side: 'double', opacity: 1}}
-              position={{x: 4, y: -2, z: -5}}
-              rotation='0 0 0'
-              events={{click: () => {
-                let newState = Object.assign({}, this.state);
-                newState.elements.push({
-                  coordinates: {
-                    x:0.35356995679296505,
-                    y:0.9261392777061402,
-                    z:-9.81714443106963
-                  },
-                  styling: {
-                    opacity: '0.99',
-                    size: 2
-                  },
-                  text: undefined,
-                  type: 'image',
-                  url: 'http://i.imgur.com/RfCeg0a.png'
-                },
-                {
-                  coordinates: {
-                    x: 9.635170602238885,
-                    y: 2.2176201729225147,
-                    z: -0.4319093668437341
-                  },
-                  styling: {
-                    color: 'white',
-                    size: '12'
-                  },
-                  text: 'Move your arms over here...',
-                  type: 'text',
-                  url: undefined
-                },
-                {
-                  coordinates: {
-                  x: 7.250952268263539,
-                  y: -4.3186272555668355,
-                  z: -4.800458580913162
-                  },
-                  styling: {
-                    color: 'white',
-                    size: '10'
-                  },
-                  text: '...and VR Octopus follows suit!',
-                  type: 'text',
-                  url: undefined
-                },
-                {
-                  coordinates: {
-                    x: -0.03415424616172854,
-                    y: 5.141521259739953,
-                    z: -8.538515896332578
-                  },
-                  styling: {
-                    color: 'red',
-                    size: '35'
-                  },
-                  text: 'VR Hackathon',
-                  type: 'text',
-                  url: undefined
-                },
-                {
-  coordinates: {
-    x: -0.2769573998527156,
-    y: 3.370416926230091,
-    z: -9.22914349791769
-  },
-  styling: {
-    color: 'red',
-    size: '15'
-  },
-  text: 'Microsoft Reactor, San Francisco CA',
-  type: 'text',
-  url: undefined
-});
-                newState.welcome = false;
-                newState.background = 'https://ucarecdn.com/802ef86b-1a66-4ddb-8f2f-bcac629f756a/NewHackaThon3ShorterStill.mp4';
-                console.log('Still running within sub component...')
-                this.setState(newState);
-              }}}
-            />
-
-
-          </Entity>
+          <Welcome
+            modifiers={modifiers}
+          />
 
           :
           null
@@ -337,7 +210,7 @@ class App extends Component {
 
 
 
-        {this.state.toggle? 
+        {this.state.settingLocation? 
 
           <Entity
             id='hiddenSphere'
@@ -345,7 +218,7 @@ class App extends Component {
             position="0 0 0"
             material={{opacity: '0', shader: 'flat', side: 'double', transparent: 'true', repeat: '-1 1'}}
             geometry="height:5;primitive:sphere;radius:10;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0"
-            events={{'click': () => this.showMenu(globalCoordinates), 'raycaster-intersected': this.handleCollide}}
+            events={{'click': () => this.showMenu(globalCoordinates), 'raycaster-intersected': this.handleCollision}}
           />
 
           :
@@ -357,11 +230,11 @@ class App extends Component {
           :
           <Entity>
             <Entity
-              id='toggleBox'
+              id='settingLocationBox'
               geometry={{primitive: 'circle', radius: 0.5}}
-              material={{src:  `${this.state.toggle ? 'http://i.imgur.com/Di1kXDN.png' : 'http://i.imgur.com/RBauqN6.png'}` , shader: 'flat', side: 'double', opacity: 0.99}}
+              material={{src:  `${this.state.settingLocation ? 'http://i.imgur.com/Di1kXDN.png' : 'http://i.imgur.com/RBauqN6.png'}` , shader: 'flat', side: 'double', opacity: 0.99}}
               position={{x: 0, y: -2, z: -5}}     
-              events={{click: this.handleClick2.bind(this)}} 
+              events={{click: this.selectLocation.bind(this)}} 
             />
             <Entity
               id='homeReturn'
