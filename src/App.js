@@ -32,26 +32,21 @@ class App extends Component {
     }
   }
 
-
   selectLocation() {
     this.setState({settingLocation: !this.state.settingLocation})
-    console.log('Box clicked! Current settingLocation state:', this.state.settingLocation, ' current globalCoordinates:', globalCoordinates, 'and current selections:', this.state.selections);
   }
 
   handleCollision(data) {
-    console.log('Collision at:', data)
     globalCoordinates = data.detail.intersection.point;
   }
 
   handleVideosphereURL() {
-    console.log('Running handleVideosphereURL...');
     let url = prompt('Please enter your URL:');
     this.setState({background: url, welcome: false});
   }
 
   selectElement(type) {
     let newObj = Object.assign({}, this.state.selections);
-    console.log('Running within selectElement... newObj:', newObj)
     if (type === newObj.type) {
       newObj['type'] = false;
       this.setState({selections: newObj})
@@ -62,93 +57,57 @@ class App extends Component {
   }
 
   setBackground(url) {
-    console.log('Running setBackground...')
     this.setState({welcome: false, background: url})
   }
 
   setBackgroundWithComments(url, comments) {
-    console.log('Running setBackgroundWithComments...')
     let newState = Object.assign({}, this.state);
     comments.forEach(comment => newState.elements.push(comment));
     newState.welcome = false;
     newState.background = url;
-    console.log('Still running within sub component...');
     this.setState(newState);
   }
 
   handleText() {
-    console.log('Running handleText...');
     let text, size, color, format, url, opacity;
     let type = this.state.selections.type;
     if (type === 'text') {
       text = prompt('Please enter your desired text!');
       size = prompt('Enter your desired font size (default: 25):');
       color = prompt('Enter your desired font color (i.e. black):').toLowerCase();
-      format = {
-        text: text,
-        previewable: true,
-        type: type,
-        styling: {
-          size: size,
-          color: color
-        }
-      };
+      format = {text: text, previewable: true, type: type, styling: {size: size, color: color}};
     } else {
       url = prompt('Please enter your media URL!');
       size = prompt('Enter your desired media size (default: 5):');
       opacity = prompt('Enter your desired opacity between 0-1 (i.e. 0.5 for 50% opacity:):')
-      format = {
-        url: url,
-        previewable: true,
-        type: type,
-        styling: {
-          size: size,
-          opacity: opacity
-        }
-      }
+      format = {url: url, previewable: true, type: type, styling: {size: size, opacity: opacity}}
     }
-    console.log('Format is currently:', format);
     this.setState({selections: format});
   }
 
   cancelPreviewable() {
-    console.log('Running cancelPreviewable...');
     let newObj = Object.assign({}, this.state.selections);
     newObj['previewable'] = false;
     this.setState({selections: newObj});
   }
 
   showMenu(coordinates) {
-    console.log('Parameters are:', coordinates);
     this.setState({settingLocation: false, placing: true})
   }
 
   hidePlane() {
-    console.log('Running hidePlane...')
     this.setState({placing: false})
   }
 
   createNewElement() {
     let tempArray = this.state.elements.slice(0);
-    let selections = this.state.selections;
-    console.log('Running createNewElement... selections are:', this.state.selections);
-    // let formattedStyling = selections.styling.split('-');
-    let element = {
-      coordinates: globalCoordinates,
-      type: selections.type,
-      text: selections.text,
-      url: selections.url,
-      type: selections.type,
-      styling: selections.styling
-    }
-    let resetSelections = {type: false, text: false, url: false, styling: false, previewable: false};
+    let element = Object.assign({coordinates: globalCoordinates}, this.state.selections);
     tempArray.push(element);
-
+    let resetSelections = {type: false, text: false, url: false, styling: false, previewable: false};
     this.setState({elements: tempArray, selections: resetSelections, placing: false});
   }
 
   renderElements() {
-    console.log('Current elements are:', this.state.elements)
     return (
       this.state.elements.map((element, idx) => {
         return (
@@ -181,8 +140,6 @@ class App extends Component {
           </a-cursor>
         </Camera>
 
-        
-        
 
         {this.state.background?
           <Videosphere 
@@ -191,7 +148,6 @@ class App extends Component {
           />
           
           :
-
           <Videosphere
             src='https://ucarecdn.com/65b1d777-9fc7-4a24-864d-9d59fd80eee4/Project24.mp4'
           />
@@ -203,30 +159,6 @@ class App extends Component {
             modifiers={modifiers}
           />
 
-          :
-          null
-        }
-
-
-
-
-        {this.state.settingLocation? 
-
-          <Entity
-            id='hiddenSphere'
-            rotation="0 180 0"
-            position="0 0 0"
-            material={{opacity: '0', shader: 'flat', side: 'double', transparent: 'true', repeat: '-1 1'}}
-            geometry="height:5;primitive:sphere;radius:10;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0"
-            events={{'click': () => this.showMenu(globalCoordinates), 'raycaster-intersected': this.handleCollision}}
-          />
-
-          :
-          null
-        }
-
-        {this.state.welcome?
-          null
           :
           <Entity>
             <Entity
@@ -247,8 +179,22 @@ class App extends Component {
         }
 
 
-        {this.state.placing ?
+        {this.state.settingLocation? 
+          <Entity
+            id='hiddenSphere'
+            rotation="0 180 0"
+            position="0 0 0"
+            material={{opacity: '0', shader: 'flat', side: 'double', transparent: 'true', repeat: '-1 1'}}
+            geometry="height:5;primitive:sphere;radius:10;segmentsRadial:48;thetaLength:360;openEnded:true;thetaStart:0"
+            events={{'click': () => this.showMenu(globalCoordinates), 'raycaster-intersected': this.handleCollision}}
+          />
 
+          :
+          null
+        }
+
+
+        {this.state.placing ?
           <ElementPlane
             position={globalCoordinates}
             selections={this.state.selections}
@@ -260,8 +206,6 @@ class App extends Component {
         }
 
         {this.renderElements()}
-
-
       </Scene>
     )
   }
