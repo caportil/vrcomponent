@@ -25,4 +25,4 @@ VR Component Creator allows users to add 2D text, images, and videos in virtual 
 # Known Issues
 
 -When selecting the type/text/characteristics of a new element, some clickable sections may encounter random 'dead zones' where clicks don't trigger the appropriate action. For example, clicking in the middle of the URL bar when placing a new element occasionally doesn't register and therefore doesn't trigger the window prompt. This is an unknown issue associated with videospheres that I've thus been unable to eliminate; if this occurs, it's best to drag the cursor to a slightly different location within the target and try again  
--NO FORM VALIDATION is enabled! The focus was more on getting the 3D video and element creation aspects functional. If you've entered incorrect information during the element creation stage, please use the 'Back' button at the very bottom to re-enter your selections
+-NO FORM VALIDATION! The idea was to get the 3D video and element creation aspects functional- if you've entered incorrect information during the element creation stage, please use the 'Back' button at the very bottom to re-enter your selections
