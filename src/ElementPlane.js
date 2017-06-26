@@ -42,7 +42,7 @@ export default props => {
       rotation={`0 ${calculateYaw(props.position)} 0`}
     >
 
-    {/* STEP ONE (Displayed from beginning) */}
+    {/********* STEP ONE (Displayed from beginning) *********/}
 
       {/* Background Plane */}
       <Entity
@@ -98,17 +98,18 @@ export default props => {
         events={{click: () => props.modifiers.selectElement('video')}}
       />
 
+    {/****************************************************/}
 
 
 
 
-    {/* STEP TWO (displayed after user selects element type) */}
+    {/********* STEP TWO (displayed after user selects element type) *********/}
 
       { props.selections.type ?
           
         <Entity>
 
-          {/* "Enter URL/text" element */}
+          {/* "Enter URL/text" element (above clickable bar) */}
           <Entity
             text={{
               value: `click to enter ${props.selections.type === 'text' ? 'text' : 'URL'} &`,
@@ -129,7 +130,7 @@ export default props => {
             events={{click: () => props.modifiers.handleText()}}
           />
 
-        {/* "Enter URL/text" element */}
+        {/* Additional element information (below clickable bar) */}
         <Entity
           text={{
             value: props.selections.type === 'text' ? `size-color-opacity` : `height-width-opacity`,
@@ -145,8 +146,12 @@ export default props => {
 
         : null
       }
+    {/****************************************************/}
 
-    {/* STEP THREE (displayed when element selections are complete) */}
+
+
+
+    {/* STEP THREE (displayed once element selections are complete) */}
 
     { props.selections.previewable ?
 
@@ -154,7 +159,7 @@ export default props => {
 
       <Entity>
       
-        {/* "Preview" element */}
+        {/* "Preview" text */}
         <Entity
           text={{
             value: 'place element',
@@ -166,8 +171,7 @@ export default props => {
           rotation='0 0 0'
         />
 
-        {/* "Clickable Preview Temp */}
-
+        {/* Place new element button */}
         <Entity
           geometry={{primitive: 'circle', radius: 0.4}}
           material={{src: 'http://i.imgur.com/iyWkLl7.png', shader: 'flat', side: 'double', opacity: 0.99}}
@@ -178,16 +182,18 @@ export default props => {
 
       </Entity>
 
+      {/* Back button element */}
       <Entity events={{click: props.modifiers.cancelPreviewable}}>
 
+        {/* Sub-element: Invisible background plane (to make full area clickable) */}
         <Entity
           geometry={{primitive: 'plane', height: 0.5, width: 0.75}}
-          material={{color: 'red', opacity: 0}}
+          material={{color: 'red', opacity: 1}}
           position={{x: 0, y: -3.25, z: 0.025}}
           rotation='0 0 0'
         />
 
-      {/* "Cancel" element */} 
+        {/* Sub-element: "Back" text */} 
         <Entity
           text={{
             value: `${props.selections.previewable ? '(back)' : ''}`,
@@ -197,18 +203,16 @@ export default props => {
           }}
           position={{x: 2.1, y: -3.15, z: 0.05}}
           rotation='0 0 0'
-          events={{click: () => console.log('back text clicked!')}}
         />
 
       </Entity>
+
+    {/****************************************************/}
 
     </Entity>
       
       : null
     }
-
-
-
 
     </Entity>
   )
