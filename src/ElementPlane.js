@@ -61,7 +61,6 @@ export default props => {
         rotation='0 0 0'
       />
 
-
       {/* Close Button */}
         <Entity
           geometry={{primitive: 'plane'}}
@@ -188,7 +187,7 @@ export default props => {
         {/* Sub-element: Invisible background plane (to make full area clickable) */}
         <Entity
           geometry={{primitive: 'plane', height: 0.5, width: 0.75}}
-          material={{color: 'red', opacity: 1}}
+          material={{color: 'red', opacity: 0}}
           position={{x: 0, y: -3.25, z: 0.025}}
           rotation='0 0 0'
         />
